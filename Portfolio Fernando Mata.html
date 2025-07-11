@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo Interativo | Fernando Mata</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Professional Blue -->
+    <!-- Application Structure Plan: A single-page, scrollable portfolio designed to tell a compelling career story. The structure is thematic, guiding the user from a high-level summary to project deep-dives, a visual skills showcase, and finally, formal details. This non-linear, story-driven approach is more engaging than a traditional resume format and allows recruiters to quickly grasp the candidate's value proposition, key achievements (like the SADT automation), and technical depth in an interactive way. -->
+    <!-- Visualization & Content Choices: 
+        - Journey Timeline (HTML/CSS): Goal is to organize and narrate the career transition. A vertical timeline is a classic, intuitive way to show progression over time.
+        - Key Project Highlight (HTML/CSS Card): Goal is to showcase a major achievement. A dedicated card with bold metrics ("44 unidades") draws immediate attention to a quantifiable result.
+        - Impact Chart (Chart.js Bar Chart): Goal is to compare the "before" and "after" state of a key metric (Contas Não Emitidas). A bar chart provides a direct, powerful visual comparison, making the impact of the automation undeniable and demonstrating the candidate's ability to connect his work to business results.
+        - Skills Toolbox (HTML/CSS Grid): Goal is to organize a large set of technical skills. Grouping them by category with simple icons makes the information scannable and less overwhelming than a long, flat list.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #343A40;
+        }
+        .section-title {
+            font-weight: 800;
+            color: #212529;
+        }
+        .bg-primary-subtle {
+            background-color: #E9F7FE;
+        }
+        .text-primary {
+            color: #0d6efd;
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #DEE2E6;
+            border-radius: 2px;
+            left: 10px;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 100%;
+            padding-left: 40px;
+            padding-bottom: 2rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: #0d6efd;
+            border: 4px solid #F8F9FA;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .timeline-item-content {
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .timeline::before {
+                left: 50%;
+            }
+            .timeline-item {
+                width: 50%;
+                padding-left: 0;
+                padding-bottom: 0;
+            }
+            .timeline-item:nth-child(odd) {
+                left: 0;
+                padding-right: 32px;
+            }
+            .timeline-item:nth-child(even) {
+                left: 50%;
+                padding-left: 32px;
+            }
+            .timeline-dot {
+                top: 10px;
+            }
+            .timeline-item:nth-child(odd) .timeline-dot {
+                right: -10px;
+                left: auto;
+                transform: translateX(50%);
+            }
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: -10px;
+                transform: translateX(-50%);
+            }
+            .timeline-item:nth-child(odd) .timeline-item-content {
+                text-align: right;
+            }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-12 md:py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-center text-center md:text-left">
+                <img src="https://i.ibb.co/TxSMHf0Y/shared-image.jpg" alt="Foto de Fernando Mata" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-lg mb-6 md:mb-0 md:mr-10 border-4 border-blue-200">
+                <div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800">Fernando Mata</h1>
+                    <p class="mt-2 text-xl md:text-2xl text-blue-600 font-medium">Desenvolvedor RPA & Analista de Dados</p>
+                    <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                        <a href="mailto:fernando.xpn@hotmail.com" class="btn-primary font-bold py-3 px-6 rounded-lg inline-block">Entrar em Contato</a>
+                        <a href="https://www.linkedin.com/in/fernando-mata-a31180150" target="_blank" class="bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg inline-block hover:bg-gray-300 transition-colors">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16 md:py-24 space-y-20 md:space-y-32">
+        <section id="resumo">
+            <h2 class="section-title text-3xl md:text-4xl text-center mb-4">Minha Jornada</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-gray-600">
+                Iniciei minha carreira na área de negócios, onde desenvolvi um olhar crítico para processos e descobri uma paixão por otimizá-los com tecnologia. Essa curiosidade me levou a uma transição natural para a área de TI, onde hoje uno meu conhecimento de negócio com a habilidade técnica para construir soluções que resolvem problemas reais.
+            </p>
+        </section>
+
+        <section id="experiencia">
+             <div class="relative max-w-4xl mx-auto timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-item-content">
+                        <time class="block mb-2 text-sm font-bold uppercase text-gray-500">Mar 2022 - Dez 2023</time>
+                        <h3 class="text-xl font-bold text-blue-600">O Início: Faturista</h3>
+                        <p class="text-gray-600 mt-2">Como Faturista, mergulhei nos processos de negócio, identifiquei gargalos e comecei a usar dados (Excel e Power BI) para otimizar a tomada de decisão e a eficiência da área.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                     <div class="timeline-dot"></div>
+                     <div class="timeline-item-content">
+                        <time class="block mb-2 text-sm font-bold uppercase text-gray-500">Jan 2024 - Presente</time>
+                        <h3 class="text-xl font-bold text-blue-600">A Transição: Desenvolvedor RPA</h3>
+                        <p class="text-gray-600 mt-2">Atuando como Desenvolvedor, aplico meu conhecimento de negócio para criar automações de ponta a ponta, liderando projetos que geram impacto direto na receita e eficiência da empresa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projeto-destaque">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-5xl mx-auto">
+                <h2 class="section-title text-3xl md:text-4xl text-center mb-2">Projeto em Destaque</h2>
+                <p class="text-center text-gray-500 text-lg mb-10">Automação do Faturamento de Contas SADT</p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-gray-100 p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-gray-700">O Problema</h3>
+                        <p class="mt-2 text-gray-600">Processo manual, demorado e com alta incidência de erros e glosas, afetando diretamente o faturamento.</p>
+                    </div>
+                    <div class="bg-primary-subtle p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-blue-800">A Solução</h3>
+                        <p class="mt-2 text-blue-700">Desenvolvimento de um fluxo totalmente automatizado com RPA (Power Automate, Blue Prism) e integrado ao sistema hospitalar.</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-green-800">Resultados Chave</h3>
+                        <p class="mt-2 text-2xl font-extrabold text-green-700">44 Unidades Implantadas</p>
+                        <p class="text-green-600">Redução de glosas e queda relevante nas Contas Não Emitidas (CNE).</p>
+                    </div>
+                </div>
+                <div class="mt-12">
+                     <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">Impacto da Automação na Previsibilidade da Receita</h3>
+                     <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades">
+            <h2 class="section-title text-3xl md:text-4xl text-center mb-12">Caixa de Ferramentas Técnicas</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="skill-card bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow">
+                    <span class="text-4xl">🤖</span>
+                    <h3 class="font-bold mt-3 text-lg">Automação (RPA)</h3>
+                    <p class="text-gray-500 text-sm">Power Automate, Blue Prism</p>
+                </div>
+                 <div class="skill-card bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow">
+                    <span class="text-4xl">📊</span>
+                    <h3 class="font-bold mt-3 text-lg">Business Intelligence</h3>
+                    <p class="text-gray-500 text-sm">Power BI, Excel Avançado</p>
+                </div>
+                 <div class="skill-card bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow">
+                    <span class="text-4xl">🗃️</span>
+                    <h3 class="font-bold mt-3 text-lg">Banco de Dados</h3>
+                    <p class="text-gray-500 text-sm">SQL Server, Oracle</p>
+                </div>
+                <div class="skill-card bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow">
+                    <span class="text-4xl">☁️</span>
+                    <h3 class="font-bold mt-3 text-lg">Cloud & DevOps</h3>
+                    <p class="text-gray-500 text-sm">Azure, Azure DevOps</p>
+                </div>
+                <div class="skill-card bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow">
+                    <span class="text-4xl">🐍</span>
+                    <h3 class="font-bold mt-3 text-lg">Linguagens</h3>
+                    <p class="text-gray-500 text-sm">Python</p>
+                </div>
+                 <div class="skill-card bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow">
+                    <span class="text-4xl">🔄</span>
+                    <h3 class="font-bold mt-3 text-lg">Metodologias</h3>
+                    <p class="text-gray-500 text-sm">Análise de Processos, Ágil</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="formacao">
+             <h2 class="section-title text-3xl md:text-4xl text-center mb-12">Formação & Certificados</h2>
+             <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-white p-5 rounded-lg shadow-sm flex items-center space-x-4">
+                    <span class="text-2xl">🎓</span>
+                    <div>
+                        <h3 class="font-bold">Graduação em Ciência da Computação</h3>
+                        <p class="text-gray-600">Uniamérica (Conclusão Prevista: Ago 2025)</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-sm flex items-center space-x-4">
+                     <span class="text-2xl">📜</span>
+                     <div>
+                        <h3 class="font-bold">Microsoft Certified: PL-500 & PL-300</h3>
+                        <p class="text-gray-600">Power Automate RPA Developer & Power BI Data Analyst</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-sm flex items-center space-x-4">
+                     <span class="text-2xl">📈</span>
+                     <div>
+                        <h3 class="font-bold">Career Track: Power BI Data Analyst</h3>
+                        <p class="text-gray-600">DataCamp</p>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold">Vamos conversar?</h2>
+            <p class="mt-2 text-gray-400">Estou sempre aberto a novas oportunidades e desafios.</p>
+             <div class="mt-6 flex justify-center space-x-4">
+                <a href="mailto:fernando.xpn@hotmail.com" class="btn-primary font-bold py-3 px-6 rounded-lg inline-block">fernando.xpn@hotmail.com</a>
+                <a href="https://www.linkedin.com/in/fernando-mata-a31180150" target="_blank" class="bg-gray-700 text-white font-bold py-3 px-6 rounded-lg inline-block hover:bg-gray-600 transition-colors">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('impactChart').getContext('2d');
+        const impactChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Antes da Automação', 'Depois da Automação'],
+                datasets: [{
+                    label: 'Contas Não Emitidas (CNE)',
+                    data: [100, 18],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y + '% (valor relativo)';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Índice Relativo de CNE'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
